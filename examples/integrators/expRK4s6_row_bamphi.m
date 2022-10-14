@@ -1,0 +1,44 @@
+function [U,info] = expRK4s6_row_bamphi(tstar,ts,Afun,U,g);
+% Method: exponential Runge Kutta of order 4 (Luan)
+
+  kappa = 2^(-22); % brusselator
+  c(2)= 1/3;
+  c(3)=1/3;
+  c(4)=2*c(3);
+  c(6)=1;
+  c(5)=(4*c(6)-3)/(6*c(6)-4);
+  tau = tstar / ts;
+  tol = kappa*tau^5;
+  t = 0;
+  V(:,1) = U;
+  info1 = [];
+  info2 = [];
+  info3 = [];
+  info4 = [];
+  opts.norm = 2;
+  for n = 1:ts
+    gtU = g(t,V(:,1));
+    normU = norm(V(:,1));
+    opts.tol = tol*normU;
+    V(:,2) = gtU;
+    [U2,info1] = bamphi(c(2)*tau,Afun,[],V(:,1:2),opts,info1);
+    D2 = g(t+c(2)*tau,U2)-gtU;
+    V(:,2) = gtU;
+    V(:,3) = D2/c(2)/tau;
+    [U34,info2] = bamphi([c(3),c(4)]*tau,Afun,[],V(:,1:3),opts,info2);
+    D3 = g(t+c(3)*tau,U34(:,1))-gtU;
+    D4 = g(t+c(4)*tau,U34(:,2))-gtU;
+    V(:,2) = gtU;
+    V(:,3) = ((-D3*c(4)/c(3)+D4*c(3)/c(4))/(c(3)-c(4)))/tau;
+    V(:,4) = ((D3/c(3)-D4/c(4))*2/(c(3)-c(4)))/tau^2;
+    [U56,info3] = bamphi([c(5),c(6)]*tau,Afun,[],V(:,1:4),opts,info3);
+    D5 = g(t+c(5)*tau,U56(:,1))-gtU;
+    D6 = g(t+c(6)*tau,U56(:,2))-gtU;
+    V(:,2) = gtU;
+    V(:,3) = ((-D5*c(6)/c(5)+D6*c(5)/c(6))/(c(5)-c(6)))/tau;
+    V(:,4) = (2*(D5/c(5)-D6/c(6))/(c(5)-c(6)))/tau^2;
+    [V(:,1),info4] = bamphi(tau,Afun,[],V(:,1:4),opts,info4);
+    t = t+tau;
+  end
+  U = V(:,1);
+  info = {info1,info2,info3,info4};
