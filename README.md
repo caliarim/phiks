@@ -7,7 +7,7 @@ Gaussian quadrature formulas, combined with a scaling and squaring technique.
 For more details, see the reference manuscript
 
 [M. Caliari, F. Cassini, and F. Zivcovich, A mu-mode approach for exponential
-integrators: actions of phi-functions of Kronecker sums](https://doi.org/10.1007/s11075-022-01399-4)
+integrators: actions of phi-functions of Kronecker sums](https://arxiv.org/abs/2210.07667)
 
 This GitHub repository contains a MATLAB implementation of **PHIKS** (fully
 compatible with GNU Octave) and all the functions and the scripts needed to
