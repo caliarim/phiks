@@ -21,6 +21,6 @@ function [U,s,q,cost] = expRK2s2_column_phiks(tstar,ts,A,U,g)
     U = U2+aux2{3};
     s(j) = (s1+s2)/2;
     q(j) = (q1+q2)/2;
-    cost(j) = (c1+c2)/2;
+    cost(j) = c1+c2;
     t = t+tau;
   end

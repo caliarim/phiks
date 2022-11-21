@@ -1,4 +1,4 @@
-function [U,s,q,cost] = expRK4s5_mix_2_phiks(tstar,ts,A,U,g);
+function [U,s,q,cost] = expRK4s5_mix_phiks(tstar,ts,A,U,g);
 % Method: exponential Runge Kutta of order 4
 
   if ts == 20
@@ -94,6 +94,6 @@ function [U,s,q,cost] = expRK4s5_mix_2_phiks(tstar,ts,A,U,g);
     U{2} = U{2}+tau*(aux1_2{2}+aux5_2);
     s(j) = (s1+s2+s3+s4+s5)/5;
     q(j) = (q1+q2+q3+q4+q5)/5;
-    cost(j) = (c1+c2+c3+c4+c5)/5;
+    cost(j) = c1+c2+c3+c4+c5;
     t = t+tau;
   end

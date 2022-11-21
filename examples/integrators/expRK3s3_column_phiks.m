@@ -27,6 +27,6 @@ function [U,s,q,cost] = expRK3s3_column_phiks(tstar,ts,A,U,g);
                1/(gamma*c(2)+c(3))*aux3{3});
     s(j) = (s1+s2+s3)/3;
     q(j) = (q1+q2+q3)/3;
-    cost(j) = (c1+c2+c3)/3;
+    cost(j) = c1+c2+c3;
     t = t+tau;
   end

@@ -1,4 +1,4 @@
-function [U,s,q,cost] = expRK4s6_row_2_phiks(tstar,ts,A,U,g);
+function [U,s,q,cost] = expRK4s6_row_phiks(tstar,ts,A,U,g);
 % Method: exponential Runge Kutta of order 4 (Luan)
 
   if ts == 20
@@ -74,7 +74,7 @@ function [U,s,q,cost] = expRK4s6_row_2_phiks(tstar,ts,A,U,g);
     c4 = (c4_1+c4_2);
     s(j) = (s1+s2+s3+s4)/4;
     q(j) = (q1+q2+q3+q4)/4;
-    cost(j) = (c1+c2+c3+c4)/4;
+    cost(j) = c1+c2+c3+c4;
     t = t+tau;
   end
   U{1} = V{1}{1};

@@ -18,7 +18,7 @@ function [U,s,q,cost] = expRK2s2_row_phiks(tstar,ts,A,U,g)
     [V{1},s2,q2,c2] = phiks(tau,A,V,2,tol*normU,1);
     s(j) = (s1+s2)/2;
     q(j) = (q1+q2)/2;
-    cost(j) = (c1+c2)/2;
+    cost(j) = c1+c2;
     t = t+tau;
   end
   U = V{1};
