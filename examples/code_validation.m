@@ -33,7 +33,7 @@ for d = drange
     for mu = 2:d
       V0 = V0.*X{mu}.*(1-X{mu});
     end
-    [res1,res12,s,q,c] = phiks(tau,fA,V0,p,tol,2,1);
+    [res1,res12,s,q] = phiks(tau,fA,V0,p,tol,2,1);
     K = kronsum(A);
     for ell = 0:p
       fprintf('ell = %i\n',ell)
@@ -45,13 +45,13 @@ for d = drange
     end
     srange_PSV(counter,counter_d) = s;
     qrange_PSV(counter,counter_d) = q;
-    crange_PSV(counter,counter_d) = c;
+    crange_PSV(counter,counter_d) = q+s*p+2;
     clear V
     V{1} = 0;
     for ell = 1:p
       V{ell+1} = V0;
     end
-    [res2,res12,s,q,c] = phiks(tau,fA,V,p,tol,2,1);
+    [res2,res12,s,q] = phiks(tau,fA,V,p,tol,2,1);
     clear V;
     V(:,1) = zeros(n^d,1);
     for ell = 1:p
@@ -62,7 +62,7 @@ for d = drange
     err_psi_lc12(counter,counter_d) = norm(res12(:)-ref(:,1),inf)/norm(ref(:,1),inf);
     srange_LCP(counter,counter_d) = s;
     qrange_LCP(counter,counter_d) = q;
-    crange_LCP(counter,counter_d) = c;
+    crange_LCP(counter,counter_d) = q*p+s*p+2;
   end
   fprintf('\nd = %i: s, q and number of Tucker operators (phi-functions on the same vector)\n',d)
   fprintf('s = '),fprintf('%i ',srange_PSV(:,counter_d)),fprintf('\n');

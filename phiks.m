@@ -33,8 +33,8 @@ function [varargout] = phiks(tau,A,V,p,tol,shat,shift)
 %   [___] = PHIKS(___, FALSE) disables the trace shifting strategy.
 %
 %   [___, S, Q, C] = PHIKS(___)  also returns the used scaling S, the number
-%   employed of quadrature points Q, and the cost C in terms of Tucker
-%   operators or equivalent operations.
+%   employed of quadrature points Q, and the cost C in terms of actual Tucker
+%   operators computed.
   d = length(A);
   if (nargin <= 6)
     shift = true;
