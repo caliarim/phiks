@@ -1,32 +1,32 @@
 function [varargout] = phiks(tau,A,V,p,tol,shat,shift)
 %PHIKS phi-functions of a Kronecker sum applied to tensors.
-%   PHIKS(TAU,A,V,P,TOL) when V is a cell of P+1 ND-arrays of the same size,
-%   returns the linear combination
+%   PHIKS(TAU,A,V,P,TOL) when V is a cell of P+1 ND-arrays of the same size
+%   returns the linear combination corresponding to
 %
-%   EXP(TAU*K)*V{1}+PHI_1(TAU*K)*V{2}+...+PHI_P(TAU*K)*V{P+1},
+%   EXP(TAU*K)*V{1}(:)+PHI_1(TAU*K)*V{2}(:)+...+PHI_P(TAU*K)*V{P+1}(:),
 %
 %   where K is the Kronecker sum of A{D},A{D-1},...,A{1}, with A{MU} a full
 %   square matrix of size N(MU)xN(MU). No matrix K is assembled.
 %   It is possible to use the scalar 0 instead of a ND-array of zero
 %   elements in all the entries of the cell V, but the last.
-%   The output is a ND-array of the same size of V{1}.
+%   The output is an ND-array of the same size of V{1}.
 %
 %   [COMBPHI_1,COMBPHI_2,...,COMBPHI_SCALES] = PHIKS(TAU,A,V,P,TOL,SCALES)
-%   returns the linear combinations
+%   returns the linear combinations corresponding to
 %
-%   EXP(TAU/2^(J-1)*K)*V{1}+1/2^(J-1)*PHI_1(TAU/2^(J-1)*K)*V{2}+...
-%                      +(1/2^(J-1))^P*PHI_P(TAU/2^(J-1)*K)*V{P+1}.
+%   EXP(TAU/2^(J-1)*K)*V{1}(:)+1/2^(J-1)*PHI_1(TAU/2^(J-1)*K)*V{2}(:)+...
+%                      +(1/2^(J-1))^P*PHI_P(TAU/2^(J-1)*K)*V{P+1}(:).
 %
 %   for J=1,2,...,SCALES.
 %
 %   PHIKS(TAU,A,V,P,TOL) when V is a single ND-array, returns a cell of
 %   ND-arrays corresponding to
 %
-%   PHI_{ELL-1}(TAU*K)*V,  ELL=1,2,...,P+1.
+%   PHI_{ELL-1}(TAU*K)*V(:),  ELL=1,2,...,P+1.
 %
 %   [PHI_1,PHI_2,...,PHI_SCALES] = PHIKS(TAU,A,V,P,TOL,SCALES) returns
 %
-%   PHI_{ELL-1}(TAU/2^(J-1)*K)*V, ELL=1,2,...,P+1.
+%   PHI_{ELL-1}(TAU/2^(J-1)*K)*V(:), ELL=1,2,...,P+1.
 %
 %   for J=1,2,...,SCALES.
 %
