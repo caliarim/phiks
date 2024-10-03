@@ -13,7 +13,8 @@ function [U,s,q,cost] = expRK1s1_row_phiks(tstar,ts,A,U,g)
     gtU = g(t,V{1});
     V{2} = tau*gtU;
     normU = norm(V{1}(:));
-    [V{1},s(j),q(j),cost(j)] = phiks(tau,A,V,1,tol*normU);
+    [V{1},s(j),q(j)] = phiks(tau,A,V,1,tol*normU);
+    cost(j) = q(j)+s(j)*1+1;
     t = t+tau;
   end
   U = V{1};

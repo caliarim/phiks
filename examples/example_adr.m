@@ -197,7 +197,6 @@ for n = nrange(2:end)
   routine = 'phiks';
   method = 'expRK2s2_column';
   fprintf(['n = %i, ',routine,'\n'],n(1))
-  counter_r = counter_r+1;
   tic
   [U,scal,quadn,cost] = feval([method,'_',routine],T,ts,A,U0,g);
   cpuPSV(counter) = toc;
